@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10152b">
+<title>FreeVideo World</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d35;--muted:#aab4d0;--accent:#8b7cff;--line:#2a3557}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#202852 0,#0b1020 48%);color:#f7f8ff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:auto;padding:22px 16px 48px}.brand{display:flex;align-items:center;gap:12px;margin:8px 0 28px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#9c8cff,#4bd6d0);display:grid;place-items:center;font-size:25px;color:#10152b}.brand h1{font-size:21px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}
+h2{font-size:25px;line-height:1.35;margin:0 0 8px}.intro{color:var(--muted);margin:0 0 22px;line-height:1.7}.card{background:rgba(21,29,53,.94);border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 12px 32px #0003}
+label{display:block;font-weight:650;margin:0 0 9px}.modes{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mode{border:1px solid var(--line);border-radius:13px;padding:12px;background:#10172c;color:#fff;text-align:center;cursor:pointer;font:inherit}.mode.active{border-color:var(--accent);background:#29264e;box-shadow:inset 0 0 0 1px var(--accent)}
+textarea,select,input[type=file]{width:100%;background:#0e1529;color:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit}textarea{min-height:110px;resize:vertical;line-height:1.6}select{margin-top:8px}
+.upload{display:block;border:1px dashed #68739a;border-radius:14px;padding:18px;text-align:center;color:var(--muted);cursor:pointer}.upload input{margin-top:12px}
+button{width:100%;border:0;border-radius:14px;padding:14px;background:linear-gradient(100deg,#8b7cff,#48c9c5);color:#10152b;font-weight:800;font-size:16px;margin-top:14px;cursor:pointer}
+.note{font-size:12px;color:var(--muted);line-height:1.65}.status{display:none;padding:13px;border-radius:12px;background:#202b49;color:#dce5ff;margin-top:12px;line-height:1.6}.status.show{display:block}.pill{display:inline-block;border:1px solid #536187;border-radius:999px;padding:4px 9px;font-size:11px;color:#c9d1ee;margin-bottom:10px}
+footer{text-align:center;color:#8590b1;font-size:12px;margin-top:26px}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand"><div class="logo">▶</div><div><h1>FreeVideo World</h1><p>آپ کے خیال سے ویڈیو تک — ایک جگہ</p></div></header>
+  <span class="pill">ابتدائی موبائل پروٹوٹائپ</span>
+  <h2>اپنا خیال ویڈیو میں بدلیں ✨</h2>
+  <p class="intro">ویڈیو بنانے کا انداز منتخب کریں، اپنا خیال لکھیں یا تصویر شامل کریں۔</p>
+
+  <section class="card">
+    <label>ویڈیو بنانے کا طریقہ</label>
+    <div class="modes">
+      <button type="button" class="mode active" data-mode="text">✍️ ٹیکسٹ سے ویڈیو</button>
+      <button type="button" class="mode" data-mode="image">🖼️ تصویر سے ویڈیو</button>
+    </div>
+    <div style="margin-top:18px">
+      <label for="prompt">آپ کی ویڈیو کی تفصیل</label>
+      <textarea id="prompt" placeholder="مثال: برف پوش پہاڑوں کے اوپر طلوعِ آفتاب، سینیمیٹک انداز میں..."></textarea>
+    </div>
+    <div id="uploadWrap" style="display:none;margin-top:16px">
+      <label for="imageFile">اپنی تصویر منتخب کریں</label>
+      <div class="upload">📷 موبائل سے تصویر منتخب کریں<input id="imageFile" type="file" accept="image/*"></div>
+    </div>
+    <div style="margin-top:16px">
+      <label for="style">ویڈیو کا انداز</label>
+      <select id="style">
+        <option>حقیقت کے قریب (Realistic)</option><option>کارٹون / اینیمیشن</option><option>سینیمیٹک فلم</option><option>3D اینیمیشن</option><option>آرٹ / فینٹسی</option>
+      </select>
+    </div>
+    <div style="margin-top:16px">
+      <label for="duration">ویڈیو کی لمبائی</label>
+      <select id="duration"><option>5 سیکنڈ</option><option>10 سیکنڈ</option><option>15 سیکنڈ</option></select>
+    </div>
+    <button id="generate">✨ ویڈیو بنانے کی درخواست</button>
+    <div id="status" class="status" role="status"></div>
+  </section>
+  <section class="card">
+    <strong>ابھی کیا کام کرتا ہے؟</strong>
+    <p class="note">یہ پہلا ڈیزائن اور موبائل انٹرفیس ہے۔ اس میں ابھی AI ویڈیو بنانے والا انجن منسلک نہیں، اس لیے بٹن دبانے سے ویڈیو رینڈر نہیں ہوگی۔ اگلے مرحلے میں محفوظ AI سروس یا اوپن سورس ماڈل جوڑنا ہوگا۔</p>
+  </section>
+  <footer>FreeVideo World · ابتدائی ورژن</footer>
+</main>
+<script>
+const modeButtons=[...document.querySelectorAll('.mode')];
+let mode='text';
+modeButtons.forEach(btn=>btn.addEventListener('click',()=>{
+  mode=btn.dataset.mode;
+  modeButtons.forEach(b=>b.classList.toggle('active',b===btn));
+  document.getElementById('uploadWrap').style.display=mode==='image'?'block':'none';
+}));
+document.getElementById('generate').addEventListener('click',()=>{
+  const prompt=document.getElementById('prompt').value.trim();
+  const file=document.getElementById('imageFile').files[0];
+  const status=document.getElementById('status');
+  status.classList.add('show');
+  if(!prompt){status.textContent='پہلے اپنی ویڈیو کی تفصیل لکھیں۔';return;}
+  if(mode==='image'&&!file){status.textContent='تصویر سے ویڈیو کے لیے پہلے تصویر منتخب کریں۔';return;}
+  status.textContent='آپ کی درخواست کا انٹرفیس تیار ہے۔ AI ویڈیو انجن ابھی منسلک نہیں؛ اگلے مرحلے میں اسے شامل کریں گے۔';
+});
+</script>
+</body>
+</html>
